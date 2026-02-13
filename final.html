@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Final ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Final Results 💘</h1>
+<div id="result"></div>
+
+<script>
+let score = parseInt(localStorage.getItem("valScore"));
+let result = document.getElementById("result");
+
+if(score === 4){
+  result.innerHTML = `
+    <h2>PERFECT SCORE!!</h2>
+    <p>You did so well. You remember tiny details and that means a lot to me. You mean so much to me, as a friend, partner and person.
+      I love learning more about you, and I hope y</p>
+    <h1>Will you be my Valentine?</h1>
+  `;
+}
+else if(score >= 2){
+  result.innerHTML = `
+    <h2>Not bad.</h2>
+    <p>This guy barely passed!!</p>
+    <h1>Be my Valentine anyway? ❤️</h1>
+  `;
+}
+else{
+  result.innerHTML = `
+    <h2>Hmmmm...</h2>
+    <p>You need more training.</p>
+    <h1>In the meantime, will you be my Valentine?</h1>
+  `;
+}
+
+localStorage.removeItem("valScore");
+localStorage.removeItem("puzzleDone");
+</script>
+
+</body>
+</html>

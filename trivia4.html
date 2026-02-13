@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mini Game ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Mini Game 💖</h2>
+<p>Click the heart 5 times to prove your love!</p>
+
+<div id="heart" style="
+  font-size: 50px;
+  cursor: pointer;
+  position: absolute;
+">❤️</div>
+
+<p>Clicks: <span id="count">0</span></p>
+
+<!-- Score HUD -->
+<div id="scoreBoard">Score: <span id="scoreValue">0</span> ❤️</div>
+
+<script>
+// --- Initialize score if it doesn't exist ---
+if(!localStorage.getItem("valScore")){
+  localStorage.setItem("valScore", 0);
+}
+
+// --- Update HUD function ---
+function updateScoreDisplay(){
+  let score = parseInt(localStorage.getItem("valScore")) || 0;
+  document.getElementById("scoreValue").innerText = score;
+}
+
+// Call on page load
+updateScoreDisplay();
+
+let clicks = 0;
+const heart = document.getElementById("heart");
+
+function moveHeart(){
+  heart.style.left = Math.random()*80 + "vw";
+  heart.style.top = Math.random()*70 + "vh";
+}
+
+heart.onclick = function(){
+  clicks++;
+  document.getElementById("count").innerText = clicks;
+  moveHeart();
+
+  if(clicks >= 5){
+    let score = parseInt(localStorage.getItem("valScore")) || 0;
+    localStorage.setItem("valScore", score + 1);
+    window.location.href = "final.html";
+  }
+};
+
+moveHeart();
+</script>
+
+</body>
+</html>

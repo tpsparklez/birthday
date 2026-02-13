@@ -1,14 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BrowserSync Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine's Day Puzzle ❤️</title>
+<link rel="stylesheet" href="style.css"> <!-- Link your CSS file -->
 </head>
 <body>
+<h1>Slide the pieces to unlock your Valentine ❤️</h1>
+<div id="puzzle"></div>
+<div id="message"></div>
+<div id="hearts"></div>
 
-  <h1>It works 🎉happy birthday!!!I love you darling.</h1>
+<script>
+// --- JavaScript remains the same as before ---
+const imgUrl = 'your-image.jpg'; // <- replace with your image path
+const size = 4; // 4x4 puzzle
+let puzzle = [];
+let empty = { x: size-1, y: size-1 };
 
-  <h1>It works 🎉</h1>
+function initPuzzle() {
+  puzzle = [];
+  for(let y=0; y<size; y++){
+    for(let x=0; x<size; x++){
+      puzzle.push({ x, y, correctX: x, correctY: y });
+    }
+  }
+  puzzle.pop(); // remove last piece
+  shufflePuzzle();
+  drawPuzzle();
+}
 
-v</body>
+function shufflePuzzle() {
+  for(let i=0; i<1000; i++){
+    const neighbors = getMovableTiles();
+    const move = neighbors[Math.floor(Math.random()*neighbors.length)];
+    moveTile(move);
+  }
+}
+
+function drawPuzzle() {
+  const puzzleDiv = document.getElementById('puzzle');
+  puzzleDiv.innerHTML = '';
+  for(let y=0; y<size; y++){
+    for(let x=0; x<size; x++){
+      const tile = puzzle.find(t => t.x === x && t.y === y);
+      const div = document.createElement('div');
+      div.className = 'tile';
+      if(tile){
+        div.style.backgroundImage = `url(${imgUrl})`;
+        div.style.backgroundPosition = `-${tile.correctX*100}px -${tile.correctY*100}px`;
+        div.onclick = () => moveTile(tile);
+      } else {
+        div.className = 'tile empty';
+      }
+      puzzleDiv.appendChild(div);
+    }
+  }
+}
+
+function getMovableTiles() {
+  return puzzle.filter(t => (Math.abs(t.x-empty.x)+Math.abs(t.y-empty.y))===1);
+}
+
+function moveTile(tile) {
+  if(!tile) return;
+  if(Math.abs(tile.x-empty.x)+Math.abs(tile.y-empty.y)===1){
+    const ex = empty.x; const ey = empty.y;
+    empty.x = tile.x; empty.y = tile.y;
+    tile.x = ex; tile.y = ey;
+    drawPuzzle();
+    checkWin();
+  }
+}
+
+function checkWin() {
+  const done = puzzle.every(t => t.x===t.correctX && t.y===t.correctY);
+
+  if(done){
+    localStorage.setItem("valScore", 0);
+    localStorage.setItem("puzzleDone", "true");
+
+    const msg = document.getElementById('message');
+    msg.innerHTML = `
+      <h2>🎉 Wait what, no way he finished..</h2>
+      <button id="startTrivia">Good job honey, shall we begin?💘</button>
+    `;
+
+    document.getElementById("startTrivia").onclick = () => {
+      window.location.href = "trivia1.html";
+    };
+  }
+}
+
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+
+  // Random horizontal starting position
+  heart.style.left = Math.random() * 80 + 10 + 'vw';
+
+  // Start near bottom of screen
+  heart.style.top = 90 + Math.random() * 10 + 'vh';
+
+  // Random size
+  const size = 15 + Math.random() * 15;
+  heart.style.width = heart.style.height = size + 'px';
+
+  // Random duration for sway animation
+  const duration = 4 + Math.random() * 3;
+  heart.style.animationDuration = duration + 's';
+
+  document.getElementById('hearts').appendChild(heart);
+
+  // Remove heart after animation completes
+  setTimeout(() => heart.remove(), duration * 1000);
+}
+
+// Create hearts at interval
+setInterval(createHeart, 400);
+
+
+initPuzzle();
+</script>
+</body>
 </html>

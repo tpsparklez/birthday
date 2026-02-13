@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Question 3 ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>💌</h2>
+<p>But in real life, what do you call me? (stop trolling)</p>
+
+<input type="text" id="answerInput">
+<button onclick="checkAnswer()">Submit</button>
+
+<p id="response"></p>
+
+<!-- Score HUD -->
+<div id="scoreBoard">Score: <span id="scoreValue">0</span> ❤️</div>
+
+<script>
+// --- Initialize score if it doesn't exist ---
+if(!localStorage.getItem("valScore")){
+  localStorage.setItem("valScore", 0);
+}
+
+// --- Update the score HUD ---
+function updateScoreDisplay(){
+  let score = parseInt(localStorage.getItem("valScore")) || 0;
+  document.getElementById("scoreValue").innerText = score;
+}
+
+// Call once on page load
+updateScoreDisplay();
+
+function checkAnswer(){
+  let input = document.getElementById("answerInput").value.toLowerCase().trim();
+  
+  if(input === "baby"){
+    let score = parseInt(localStorage.getItem("valScore")) || 0;
+    localStorage.setItem("valScore", score + 1);
+    window.location.href = "trivia4.html";
+  } else {
+    document.getElementById("response").innerText = "Don't piss me off.";
+  }
+}
+</script>
+
+</body>
+</html>

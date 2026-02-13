@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Question 2 ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Question 2</h2>
+<p>Obviously your Among Us name was the infamous Dizzyboy. What was mine?</p>
+
+<div class="buttonRow">
+  <button onclick="answer(false)">Sparklelady</button>
+  <button onclick="answer(true)">Sparklegir</button>
+  <button onclick="answer(false)">Sparklerman</button>
+</div>
+
+<!-- Score HUD -->
+<div id="scoreBoard">Score: <span id="scoreValue">0</span> ❤️</div>
+
+<script>
+// --- Initialize score if it doesn't exist ---
+if(!localStorage.getItem("valScore")){
+  localStorage.setItem("valScore", 0);
+}
+
+// --- Update the score HUD ---
+function updateScoreDisplay(){
+  let score = parseInt(localStorage.getItem("valScore")) || 0;
+  document.getElementById("scoreValue").innerText = score;
+}
+
+// Call on page load
+updateScoreDisplay();
+
+// --- Answer click handler ---
+function answer(correct){
+  if(correct){
+    let score = parseInt(localStorage.getItem("valScore")) || 0;
+    localStorage.setItem("valScore", score + 1);
+  }
+  window.location.href = "trivia3.html";
+}
+</script>
+
+</body>
+</html>
