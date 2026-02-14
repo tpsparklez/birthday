@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css"> <!-- Link your CSS file -->
 </head>
 <body>
-<h1>Slide the pieces to unlock your Valentine ❤️</h1>
+<h1>Slide the pieces to unlock your Valentine <3</h1>
 <div id="puzzle"></div>
 <div id="message"></div>
 <div id="hearts"></div>
@@ -96,7 +96,9 @@ function checkWin() {
 
 // Floating hearts
 function createHeart() {
-  const heart = document.createElement('div');
+  const heart = document.createElement('img');
+  heart.src = "heart.png"; // <-- replace with your actual file name/path
+
   heart.className = 'heart';
 
   // Random horizontal starting position
@@ -106,7 +108,7 @@ function createHeart() {
   heart.style.top = 90 + Math.random() * 10 + 'vh';
 
   // Random size
-  const size = 15 + Math.random() * 15;
+  const size = 200 + Math.random() * 150;
   heart.style.width = heart.style.height = size + 'px';
 
   // Random duration for sway animation
